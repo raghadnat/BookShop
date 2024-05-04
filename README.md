@@ -1,4 +1,4 @@
-To Use Our Endpoint you should :
+To Use Our Endpoint and access bookShop you should :
 
 1- go to signin endpoint and click on try it out endpoint the fill your username and password and click Execute button 
 ![image](https://github.com/raghadnat/BookShop/assets/48677763/40282f43-c24d-4db1-ad3e-10ee207c3ff7)
