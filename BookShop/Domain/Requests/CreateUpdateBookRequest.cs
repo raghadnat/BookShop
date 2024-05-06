@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookShop.Domain.DTOs
 {
-    public class CreateUpdateBookRequestDto
+    public class CreateUpdateBookRequest
     {
         [Required]
         public string Title { get; set; }

@@ -12,7 +12,7 @@ namespace BookShop.Domain.Mapper
             CreateMap<Book, BookDtos>().ReverseMap();
             CreateMap<Student, StudentDtos>().ReverseMap();
             CreateMap<PaginatedResult<Book>, PaginatedResult<BookDtos>>().ReverseMap();
-            CreateMap<CreateUpdateBookRequestDto, Book>().ReverseMap();
+            CreateMap<CreateUpdateBookRequest, Book>().ReverseMap();
         }
     }
 }

@@ -21,14 +21,19 @@ namespace BookShop.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
-        [HttpPost("api/book/Borrow/{id}/{studentId}")]
-        public async Task<ActionResult<BookDtos>> Borrow(int id,int studentId)
+        [HttpPost("api/book/Borrow/{id}")]
+        public async Task<ActionResult<BookDtos>> Borrow(int id)
         {
             ///get student id form request 
             var currentUser = HttpContext.User;
-            
-            var Books = await _Repository.GetByStudentId(studentId);
+            var StudentIdClaim = currentUser.Claims.Where(x => x.Type == "Id").FirstOrDefault();
+            if (StudentIdClaim == null)
+            {
+                return BadRequest("Invalid Login Details!");
+
+            }
+            var StudentId = Convert.ToInt32(StudentIdClaim.Value);
+            var Books = await _Repository.GetByStudentId(StudentId);
             if (Books.Count() > 2)
             {
                 return BadRequest("student couldn't borrow more than two books!");
@@ -40,7 +45,7 @@ namespace BookShop.Controllers
                 return BadRequest("Book Not Available!");
 
             }
-            RequestedBook.StudentId =studentId;
+            RequestedBook.StudentId = StudentId;
             RequestedBook.IsBooked = true;
 
             await _Repository.UpdateAsync(RequestedBook);
@@ -72,7 +77,7 @@ namespace BookShop.Controllers
         }
 
         [HttpPut("api/book/{id}")]
-        public async Task<IActionResult> Put(int id, CreateUpdateBookRequestDto book)
+        public async Task<IActionResult> Update(int id, CreateUpdateBookRequest book)
         {
             var CurrentBook = await _Repository.GetByIdAsync(id);
             if (CurrentBook == null)
@@ -87,7 +92,7 @@ namespace BookShop.Controllers
         }
 
         [HttpPost("api/book/Add")]
-        public async Task<ActionResult<BookDtos>> PostBook(CreateUpdateBookRequestDto book)
+        public async Task<ActionResult<BookDtos>> Add(CreateUpdateBookRequest book)
         {
             var Data = _mapper.Map<Book>(book);
 

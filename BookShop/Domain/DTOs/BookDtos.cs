@@ -14,6 +14,5 @@ namespace BookShop.Domain.DTOs
         public string Genre { get; set; }
         public int PublicationYear { get; set; }
         public bool IsBooked { get; set; }
-        public Student Student { get; set; }
     }
 }

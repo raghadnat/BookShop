@@ -37,7 +37,7 @@ namespace BookShop.Controllers
 
             return tokenString;
         }
-
+       
         private string GenerateJSONWebToken(Student userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
